@@ -40,7 +40,7 @@ class RegisterNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('APP_URL_FRONT', 'http://localhost:4200/') . "register/client/activate/{$notifiable->activation_token}";
+        $url = env('APP_URL_FRONT', 'http://localhost:4200') . "/register/client/{$notifiable->activation_token}";
 
         return (new MailMessage)
             ->subject('Confirme sua conta')

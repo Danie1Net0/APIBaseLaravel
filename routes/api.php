@@ -43,7 +43,7 @@ Route::namespace('Api\Auth')->prefix('auth')->group(function() {
 /*
  * Profile Update (Clients and Administrators) Routes
  */
-Route::namespace('Api\Users')->group(function () {
+Route::namespace('Api\User')->group(function () {
     Route::post('/client/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:client', 'permission:edit-registration']);
     Route::post('/administrator/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
 });
@@ -56,13 +56,11 @@ Route::get('/users', 'Api\User\UserController@show')->middleware(['auth:api']);
 /*
  * Clients Routes
  */
-Route::namespace('Api\Users\Client')->prefix('/clients/register')->group(function () {
+Route::namespace('Api\User\Client')->prefix('/clients')->group(function () {
     Route::post('/', 'ClientController@store');
     Route::get('/activate/resend-confirmation', 'ActivateRegisterController@resendConfirmationEmail');
     Route::put('/activate/{token}', 'ActivateRegisterController@activateRegistration');
-});
 
-Route::namespace('Api\Users\Client')->prefix('/clients')->group(function () {
     Route::get('/', 'ClientController@index')->middleware(['auth:api', 'role:super-admin|administrator', 'permission:list-clients']);
     Route::get('/{id}', 'ClientController@show')->middleware(['auth:api', 'role:super-admin|administrator', 'permission:view-client']);
     Route::put('/', 'ClientController@update')->middleware(['auth:api', 'role:client', 'permission:edit-registration']);
@@ -71,13 +69,13 @@ Route::namespace('Api\Users\Client')->prefix('/clients')->group(function () {
 /*
  * Administrators Routes
  */
-Route::namespace('Api\Users\Administrator')->prefix('/administrators/register')->group(function () {
+Route::namespace('Api\User\Administrator')->prefix('/administrators/register')->group(function () {
     Route::post('/', 'AdministratorController@store')->middleware(['auth:api', 'role:super-admin']);
     Route::post('/complete-registration', 'CompleteRegistrationController@completeRegistration');
     Route::post('/{token}', 'CompleteRegistrationController@findAdministratorByToken');
 });
 
-Route::namespace('Api\Users\Administrator')->prefix('/administrators')->group(function () {
+Route::namespace('Api\User\Administrator')->prefix('/administrators')->group(function () {
     Route::get('/', 'AdministratorController@index')->middleware(['auth:api', 'role_or_permission:super-admin|list-administrators']);
     Route::get('/{id}', 'AdministratorController@show')->middleware(['auth:api', 'role_or_permission:super-admin|view-administrator']);
     Route::put('/', 'AdministratorController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
