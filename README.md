@@ -1,6 +1,9 @@
 # APIBaseLaravel
 API genérica, base para projetos em Laravel. Conta com recursos como login, recuperação de senha, confirmação de cadastro por e-mail, controle de permissões, etc. A API para a todas governar.
 
+## Documentação
+* A documentação do projeto se encontra em construção e pode ser acessada a partir [desse endereço](https://documenter.getpostman.com/view/6527666/SW7gTjUs?version=latest).
+
 ## Dependências
 Ao Laravel foram adicionadas as seguintes dependências:
 * [Laravel/Passport](https://laravel.com/docs/master/passport)
@@ -61,3 +64,13 @@ $ php artisan passport:install
 ```
 $ php artisan serve
 ```
+
+> ## Considerações importantes
+> 1. As definições de *Roles* e *Permissions* padrões estão no arquivo ***database/seeds/RolesAndPermissionsTablesSeeder.php*** e devem ser alteradas conforme a necessidade, podendo ser configuradas também a partir do Artisan.
+> 
+> 2. Ao executar as *seeds*, um super administrador é criado com os seguintes dados: 
+> * ***E-mail:*** email@dominio.com
+> * ***Senha:*** asdfasdf  <br><br>
+> A partir desse usuário, outros administradores e super administradores pode ser criados.
+>
+> 3. A propiedade ***APP_URL_FRONT=http://localhost:4200*** encontrada no arquivo de configuração ***.env*** corresponde à URL da aplicação de front-end e deve ser alterada conforme a necessidade.
