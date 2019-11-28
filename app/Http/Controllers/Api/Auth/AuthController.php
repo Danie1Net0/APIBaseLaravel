@@ -19,10 +19,7 @@ class AuthController extends Controller
             $user = Auth::guard('web')->user();
             $token = $user->createToken(env('AUTH_TOKEN'))->accessToken;
 
-            if ($user->hasRole('client'))
-                return (new ClientResource($user))->additional(['meta' => ['success' => true, 'token' => $token]]);
-            else if ($user->hasRole('administrator|super-admin'))
-                return (new AdministratorResource($user))->additional(['meta' => ['success' => true, 'token' => $token]]);
+            return response()->json(['data' => ['token' => $token], 'meta' => ['success' => 'true', 'message' => 'Usuário autenticado com sucesso!']]);
         }
 
         return response()->json(['meta' => ['success' => false, 'message' => 'E-mail ou senha inválidos!']], 401);

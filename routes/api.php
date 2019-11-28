@@ -31,7 +31,7 @@ Route::namespace('Api\Auth')->prefix('auth')->group(function() {
     Route::get('/logout', 'AuthController@logout')->middleware('auth:api');
 
     Route::prefix('password')->group(function () {
-        Route::get('/', 'PasswordResetController@sendPasswordReset');
+        Route::get('/request', 'PasswordResetController@sendPasswordReset');
         Route::put('/reset', 'PasswordResetController@resetPassword');
         Route::get('/{token}', 'PasswordResetController@findPasswordResetToken');
     });
@@ -39,6 +39,19 @@ Route::namespace('Api\Auth')->prefix('auth')->group(function() {
     Route::put('/clients/password', 'PasswordUpdateController@update')->middleware(['auth:api', 'role:client', 'permission:edit-registration']);
     Route::put('/administrators/password', 'PasswordUpdateController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
 });
+
+/*
+ * Profile Update (Clients and Administrators) Routes
+ */
+Route::namespace('Api\Users')->group(function () {
+    Route::post('/client/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:client', 'permission:edit-registration']);
+    Route::post('/administrator/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
+});
+
+/*
+ * Users Route
+ */
+Route::get('/users', 'Api\User\UserController@show')->middleware(['auth:api']);
 
 /*
  * Clients Routes
@@ -68,12 +81,4 @@ Route::namespace('Api\Users\Administrator')->prefix('/administrators')->group(fu
     Route::get('/', 'AdministratorController@index')->middleware(['auth:api', 'role_or_permission:super-admin|list-administrators']);
     Route::get('/{id}', 'AdministratorController@show')->middleware(['auth:api', 'role_or_permission:super-admin|view-administrator']);
     Route::put('/', 'AdministratorController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
-});
-
-/*
- * Profile Update (Clients and Administrators) Routes
- */
-Route::namespace('Api\Users')->group(function () {
-    Route::post('/client/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:client', 'permission:edit-registration']);
-    Route::post('/administrator/profile-image', 'UploadImageController@update')->middleware(['auth:api', 'role:administrator', 'permission:edit-registration']);
 });

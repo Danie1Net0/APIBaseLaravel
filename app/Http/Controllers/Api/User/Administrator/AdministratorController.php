@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Users\Administrator;
+namespace App\Http\Controllers\Api\User\Administrator;
 
 use App\Http\Requests\Api\Users\Administrator\RegisterRequest;
 use App\Http\Requests\Api\Users\Administrator\UpdateRequest;

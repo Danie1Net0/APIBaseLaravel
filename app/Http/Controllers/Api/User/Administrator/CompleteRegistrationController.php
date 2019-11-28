@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Users\Administrator;
+namespace App\Http\Controllers\Api\User\Administrator;
 
 use App\Http\Requests\Api\Users\Administrator\CompleteRegistrationRequest;
 use App\Http\Resources\Api\Users\AdministratorResource;

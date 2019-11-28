@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Users\Client;
+namespace App\Http\Controllers\Api\User\Client;
 
 use App\Http\Requests\Api\Users\Client\RegisterRequest;
 use App\Http\Requests\Api\Users\Client\UpdateRequest;
